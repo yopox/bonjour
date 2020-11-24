@@ -1,0 +1,5 @@
+package-lock.json
+*.pdf
+
+.idea/
+node_modules/
