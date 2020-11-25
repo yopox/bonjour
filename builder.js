@@ -1,3 +1,17 @@
+const greeter = require("./components/greeter")
+const style = "body { margin: 0; }"
+
 exports.bonjour = function() {
-    return "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">The wait is over!<br>I actually finished it a bit earlier than expected.<br>I&#39;ve been feelin kinda funky for the past few weeks and working on this was sorta therapeutic or something.<br><br>Shoutouts to <a href=\"https://twitter.com/foofarawr?ref_src=twsrc%5Etfw\">@foofarawr</a> for inspiring this. <a href=\"https://t.co/eUDKunKNb4\">pic.twitter.com/eUDKunKNb4</a></p>&mdash; Erdrick Andre (@Dewndeym) <a href=\"https://twitter.com/Dewndeym/status/1330365702843338752?ref_src=twsrc%5Etfw\">November 22, 2020</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>"
+
+    let html = '<html lang="en">'
+    html +=
+        `<head>
+            <title>bonjour</title>
+            <style>${style}</style>
+        </head>`
+
+    html += '<body>'
+    html += greeter.build({name: "yopox"})
+    html += '</body></html>'
+    return html
 }
