@@ -1,5 +1,6 @@
 exports.build = function (options) {
     return {
-        html: `<h1>bonjour, ${options.name}</h1>`,
+        title: options.title,
+        html: ``,
     }
 }

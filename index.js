@@ -1,17 +1,17 @@
 const puppeteer = require("puppeteer")
 const fs = require('fs');
 const builder = require("./builder")
+const header = require("./components/header")
 
 // Create output folder
-if (!fs.existsSync('output')){
+if (!fs.existsSync('output')) {
     fs.mkdirSync('output');
 }
 
 // Puppeteer options
 const content_options = {waitUntil: "networkidle0"}
-const date = new Date()
 const pdf_options = {
-    path: `output/bonjour-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}.pdf`,
+    path: `output/bonjour-${header.dateYMD}.pdf`,
     printBackground: true,
     width: 1404,
     height: 1872
@@ -21,7 +21,7 @@ const pdf_options = {
 (async () => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
-    await page.setContent(builder.bonjour(), content_options)
+    await page.setContent(await builder.bonjour(), content_options)
     await page.pdf(pdf_options)
     await browser.close()
 })();
