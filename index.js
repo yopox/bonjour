@@ -1,10 +1,15 @@
-const pp = require("pdf-puppeteer");
-const fs = require('fs')
+const puppeteer = require("puppeteer")
+const builder = require("./builder")
 
-const options = {width: 1404, height: 1872};
-const save = function(pdf) {
-    fs.writeFile("test.pdf", pdf, function (){})
-    console.log("PDF created.")
-}
+const content_options = {waitUntil: "networkidle0"}
 
-pp("<h1>bonjour</h1>", save, options)
+const date = new Date()
+const pdf_options = {path: `bonjour-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}.pdf`, width: 1404, height: 1872, printBackground: true};
+
+(async () => {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.setContent(builder.bonjour(), content_options)
+    await page.pdf(pdf_options)
+    await browser.close()
+})();
