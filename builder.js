@@ -30,10 +30,11 @@ async function buildComponent(component, options = {}) {
 }
 
 async function frontPage() {
-    let html = ""
+    let html = `<div class="page">`
     html += await buildComponent(header)
     html += await buildComponent(greeter, {name: "yopox"})
     html += await buildComponent(calendar)
     html += await buildComponent(empty, {title: "notes & todos"})
+    html += "</div>"
     return html
 }

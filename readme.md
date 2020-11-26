@@ -13,7 +13,23 @@ The goal is to generate a custom newspaper every day which can be synced with a 
 1. `npm install` (first time only)
 2. `npm run bonjour`
 
+# Project organization
+
+- `index.js`
+    - Builds the PDF with puppeteer
+    - **TODO**: Google Drive sync & remarkable sync
+- `builder.js`
+    - Builds the html content using components
+- `components/`
+    - Definition of the different components, the `build(options)` function returns html elements (string)
+- `config/`
+    - General and component specific configuration
+
 # Config
+
+## General
+
+Check `config/general.js` to edit general values.
 
 ## `calendar`
 

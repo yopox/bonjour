@@ -41,6 +41,8 @@ const style = `
     }
     
     #calendar-events {
+        max-height: 800px;
+        overflow: hidden;
         font-size: 30px;
         line-height: 50px;
         width: ${daySize * 7 + dayMargin * 11}px;
