@@ -1,5 +1,5 @@
 exports.build = function (title) {
     return {
-        html: `<h2>${title}</h2>`,
+        html: `<h2 class="section">${title}</h2>`,
     }
 }
