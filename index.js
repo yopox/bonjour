@@ -1,7 +1,8 @@
 const puppeteer = require("puppeteer")
 const fs = require('fs');
+const moment = require("moment")
+
 const builder = require("./builder")
-const header = require("./components/header")
 
 // Create output folder
 if (!fs.existsSync('output')) {
@@ -11,7 +12,7 @@ if (!fs.existsSync('output')) {
 // Puppeteer options
 const content_options = {waitUntil: "networkidle0"}
 const pdf_options = {
-    path: `output/bonjour-${header.dateYMD}.pdf`,
+    path: `output/bonjour-${moment().format("YYYY-MM-DD")}.pdf`,
     printBackground: true,
     width: 1404,
     height: 1872

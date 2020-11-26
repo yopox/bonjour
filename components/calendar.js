@@ -24,27 +24,32 @@ const style = `
         border-radius: ${daySize}px;
         border: ${dayBorder}px solid black;
         margin: 0 ${dayMargin}px;
+        margin-bottom: 50px;
         line-height: ${daySize - dayBorder * 2}px;
         text-align: center;
         box-sizing: border-box;
     }
     
     .calendar-selected {
-        background-color: #000;
-        color: #FFF;
+        background-color: #000 !important;
+        color: #FFF !important;
+    }
+    
+    .calendar-gray {
+        background-color: #DDD;
+        color: #000;
     }
     
     #calendar-events {
         font-size: 30px;
         line-height: 50px;
-        padding-top: 50px;
         width: ${daySize * 7 + dayMargin * 11}px;
         margin: auto;
     }
     
     .calendar-time {
-        font-family: JetBrains Mono, monospace;
         width: 280px;
+        font-weight: 600;
     }
     
     .calendar-summary {
@@ -56,7 +61,7 @@ exports.build = async function (options) {
     let html = `<style>${style}</style><div id="calendar-container" class="column justify align">`
 
     // Days
-    html += buildDays()
+    html += await buildDays()
 
     // Events
     html += await buildEvents()
@@ -69,14 +74,16 @@ exports.build = async function (options) {
     }
 }
 
-function buildDays() {
+async function buildDays() {
     const weekDay = moment().weekday()
 
-    let html = '<div class="row justify align">'
+    let html = '<div class="row justify align mono">'
 
     for (let i = 1 - weekDay; i < 8 - weekDay; i++) {
-        let dayNb = moment().add(i, "day").format('DD')
-        let classes = 'calendar-day' + ((i === 0) ? ' calendar-selected' : '')
+        let day = moment().add(i, "day")
+        let dayNb = day.format('DD')
+        let gray = await isGray(day)
+        let classes = 'calendar-day' + (i === 0 ? ' calendar-selected' : '') + (gray ? ' calendar-gray' : '')
         html += `<div class="${classes}">${dayNb}</div>`
     }
 
@@ -123,11 +130,18 @@ async function buildEvents() {
     events.forEach((event) => {
         let time = event.hasOwnProperty("allDay") ? 'All day' : `${hhmm(event.start.dateTime)} — ${hhmm(event.end.dateTime)}`
         html += `<div class="row">
-                    <div class="calendar-time">${time}</div>
+                    <div class="calendar-time mono">${time}</div>
                     <div class="calendar-summary">${event.summary}</div>
                 </div>`
     })
 
     html += '</div>'
     return html
+}
+
+async function isGray(day) {
+    // Make weekend days gray
+    let weekend = day.format("d") % 6 === 0
+
+    return weekend
 }
