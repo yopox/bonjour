@@ -1,19 +1,16 @@
 /* calendar component.
  * Adds support for google calendars to bonjour.
  *
- * `config/calendar.js` config file is required.
  *  See `readme.md` for help with configuration.
  */
 const moment = require('moment')
 const gcal = require('node-google-calendar')
-
-// Replace with your cal config
-const config = require("../config/calendar")
+const config = require("../config/general").calendar
 
 const daySize = 85
 const dayMargin = 25
 const dayBorder = 4
-const style = `
+const style = `<style>
     #calendar-container {
         width: 100%;
     }
@@ -57,10 +54,10 @@ const style = `
     .calendar-summary {
         width: ${daySize * 7 + dayMargin * 11 - 280}px;
     }
-`
+    </style>`
 
 exports.build = async function (options) {
-    let html = `<style>${style}</style><div id="calendar-container" class="column justify align">`
+    let html = `${style}<div id="calendar-container" class="column justify align">`
 
     // Days
     html += await buildDays()
@@ -136,6 +133,11 @@ async function buildEvents() {
                     <div class="calendar-summary">${event.summary}</div>
                 </div>`
     })
+
+    // No events
+    if (events.length === 0) {
+        html += `<div>No events today.</div>`
+    }
 
     html += '</div>'
     return html
