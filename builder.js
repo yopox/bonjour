@@ -6,12 +6,18 @@ const header = require("./components/header")
 const section = require("./components/section")
 const calendar = require("./components/calendar")
 const empty = require("./components/empty")
+const japanese = require("./components/japanese")
 
 exports.bonjour = async function () {
-    let html = '<html lang="en">'
-    html += `<style>${style}</style>`
+    let html = `<html lang="en"><style>${style}</style>`
 
     html += await frontPage()
+
+    // Page 2
+    html += `<div class="page">`
+    html += await buildComponent(header)
+    html += await buildComponent(japanese)
+    html += `</div>`
 
     return html
 }
@@ -32,7 +38,7 @@ async function buildComponent(component, options = {}) {
 async function frontPage() {
     let html = `<div class="page">`
     html += await buildComponent(header)
-    html += await buildComponent(greeter, {name: "yopox"})
+    html += await buildComponent(greeter)
     html += await buildComponent(calendar)
     html += await buildComponent(empty, {title: "notes & todos"})
     html += "</div>"
