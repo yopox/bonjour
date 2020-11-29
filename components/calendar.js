@@ -78,7 +78,8 @@ async function buildDays() {
 
     let html = '<div class="row justify align mono">'
 
-    for (let i = 1 - weekDay; i < 8 - weekDay; i++) {
+    let offset = (weekDay === 0) ? -7 : 0 // Sunday is the last visually, first in the logical count
+    for (let i = 1 - weekDay + offset; i < 8 - weekDay + offset; i++) {
         let day = moment().add(i, "day")
         let dayNb = day.format('DD')
         let gray = await isGray(day)
