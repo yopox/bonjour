@@ -9,30 +9,29 @@ const style = `<style>
     }
     
     .japanese-box {
-        border-radius: 10px;
         font-size: 30px;
     }
     
     .japanese-kanji {
-        font-size: 250px;
-        line-height: 250px;
+        font-size: 150px;
         text-align: center;
         padding-right: 50px;
     }
     
     .japanese-box + .japanese-box {
-        margin-top: 50px;
+        margin-top: 30px;
     }
     
     .japanese-title {
         font-weight: 300;
-        font-size: 25px;
+        font-size: 20px;
         padding-top: 15px;
     }
     
     .japanese-meaning {
-        font-weight: 700;
-        font-size: 40px;
+        font-weight: 600;
+        font-size: 35px;
+        margin-bottom: -30px;
     }
 </style>`
 
@@ -40,19 +39,23 @@ const divider = "&#160;&#160;•&#160;&#160;"
 
 exports.build = async function (options) {
     let html = ''
+    let kanji = []
 
     for (const level of config.japanese.levels) {
         let rss = await getKanji(level)
         let on = (rss.on.length > 0) ? `<div class="japanese-title">ON</div><div class="japanese-kana">${rss.on.join(divider)}</div>` : ''
         let kun = (rss.kun.length > 0) ? `<div class="japanese-title">KUN</div><div class="japanese-kana">${rss.kun.join(divider)}</div>` : ''
-        html += `<div class="japanese-box row align">
-                    <div class="japanese-kanji jap">${rss.kanji}</div>
-                    <div class="column justify">
-                        <div class="japanese-meaning">${rss.meanings.join(divider)}</div>
-                        ${on}
-                        ${kun}
+        html += `<div class="japanese-box column justify">
+                    <div class="japanese-meaning">${rss.meanings.join(divider)}</div>
+                    <div class="row align">
+                        <div class="japanese-kanji jap">${rss.kanji}</div>
+                        <div class="column justify">
+                            ${on}
+                            ${kun}
+                        </div>
                     </div>
                 </div>`
+        kanji.push(rss.kanji)
     }
 
     return {
