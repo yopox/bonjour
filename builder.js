@@ -7,6 +7,7 @@ const section = require("./components/section")
 const calendar = require("./components/calendar")
 const empty = require("./components/empty")
 const japanese = require("./components/japanese")
+const sudoku = require("./components/sudoku")
 
 exports.bonjour = async function () {
     let html = `<html lang="en"><style>${style}</style>`
@@ -17,6 +18,12 @@ exports.bonjour = async function () {
     html += `<div class="page">`
     html += await buildComponent(header)
     html += await buildComponent(japanese)
+    html += `</div>`
+
+    // Page 3
+    html += `<div class="page">`
+    html += await buildComponent(header)
+    html += await buildComponent(sudoku)
     html += `</div>`
 
     return html

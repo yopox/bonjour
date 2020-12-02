@@ -15,3 +15,9 @@ exports.calendar = {
 exports.japanese = {
     levels: [4, 3, 2, 1],
 }
+
+// components/sudoku configuration
+exports.sudoku = {
+    // Possible difficulties are easy / medium / hard
+    difficulty: "easy",
+}
