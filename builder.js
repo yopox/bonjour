@@ -1,6 +1,9 @@
 const fs = require('fs')
 const style = fs.readFileSync('style.css')
 
+const PAGE_OPENING = '<div class="page">'
+const PAGE_ENDING = '</div>'
+
 const greeter = require("./components/greeter")
 const header = require("./components/header")
 const section = require("./components/section")
@@ -14,17 +17,8 @@ exports.bonjour = async function () {
 
     html += await frontPage()
 
-    // Page 2
-    html += `<div class="page">`
-    html += await buildComponent(header)
-    html += await buildComponent(japanese)
-    html += `</div>`
-
-    // Page 3
-    html += `<div class="page">`
-    html += await buildComponent(header)
-    html += await buildComponent(sudoku)
-    html += `</div>`
+    html += await page([[japanese, {}]])
+    html += await page([[sudoku, {difficulty: "easy"}]])
 
     return html
 }
@@ -43,11 +37,21 @@ async function buildComponent(component, options = {}) {
 }
 
 async function frontPage() {
-    let html = `<div class="page">`
+    return page([
+        [greeter, {}],
+        [calendar, {}],
+        [empty, {title: "notes & todos"}],
+    ])
+}
+
+async function page(components) {
+    let html = PAGE_OPENING
     html += await buildComponent(header)
-    html += await buildComponent(greeter)
-    html += await buildComponent(calendar)
-    html += await buildComponent(empty, {title: "notes & todos"})
-    html += "</div>"
+
+    for (const i in components) {
+        html += await buildComponent(components[i][0], components[i][1])
+    }
+
+    html += PAGE_ENDING
     return html
 }
