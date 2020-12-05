@@ -3,11 +3,7 @@ const xml2js = require('xml2js')
 const axios = require('axios')
 const config = require('../config/general')
 
-const style = `<style>
-    .jap {
-        font-family: Noto Sans JP, serif;
-    }
-    
+const style = `<style> 
     .japanese-box {
         font-size: 30px;
     }
@@ -43,8 +39,8 @@ exports.build = async function (options) {
 
     for (const level of config.japanese.levels) {
         let rss = await getKanji(level)
-        let on = (rss.on.length > 0) ? `<div class="japanese-title">ON</div><div class="japanese-kana">${rss.on.join(divider)}</div>` : ''
-        let kun = (rss.kun.length > 0) ? `<div class="japanese-title">KUN</div><div class="japanese-kana">${rss.kun.join(divider)}</div>` : ''
+        let on = (rss.on.length > 0) ? `<div class="japanese-title">ON</div><div class="japanese-kana jap">${rss.on.join(divider)}</div>` : ''
+        let kun = (rss.kun.length > 0) ? `<div class="japanese-title">KUN</div><div class="japanese-kana jap">${rss.kun.join(divider)}</div>` : ''
         html += `<div class="japanese-box column justify">
                     <div class="japanese-meaning">${rss.meanings.join(divider)}</div>
                     <div class="row align">

@@ -13,10 +13,15 @@ html {
 .page {
     height: 1672px;
     padding: 100px 100px 100px 200px;
+    overflow: hidden;
 }
 
 .mono {
     font-family: JetBrains Mono, monospace;
+}
+
+.jap {
+    font-family: Noto Sans JP, serif;
 }
 
 h1, h2, h3, h4 {
