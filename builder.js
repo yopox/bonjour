@@ -11,13 +11,24 @@ const calendar = require("./components/calendar")
 const empty = require("./components/empty")
 const japanese = require("./components/japanese")
 const sudoku = require("./components/sudoku")
+const anki = require("./components/anki")
 
 exports.bonjour = async function () {
     let html = `<html lang="en"><style>${style}</style>`
 
     html += await frontPage()
 
+    html += await page([[anki, {deck: "JP Core 2000", answers: false, jap: true}]])
+    html += await page([[anki, {deck: "JP Core 2000", answers: true, jap: true}]])
+
+    html += await page([[anki, {deck: "JP Core 2000", seed: "1", answers: false, jap: true}]])
+    html += await page([[anki, {deck: "JP Core 2000", seed: "1", answers: true, jap: true}]])
+
+    html += await page([[anki, {deck: "B1 Wortliste", answers: false}]])
+    html += await page([[anki, {deck: "B1 Wortliste", answers: true}]])
+
     html += await page([[japanese, {}]])
+
     html += await page([[sudoku, {difficulty: "easy"}]])
 
     return html
