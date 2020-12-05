@@ -1,5 +1,4 @@
 const axios = require("axios")
-const config = require("../config/general").sudoku
 
 const CELL_SIZE = 90
 const BORDER_SIZE = 4
@@ -54,13 +53,13 @@ const style = `<style>
  * Scraps the daily sudoku grids of the NYT.
  * @returns {Promise<{html: string, title: string}>}
  */
-exports.build = async function () {
+exports.build = async function (options) {
     let nyt = await axios.request({
         method: 'GET',
         url: `https://www.nytimes.com/puzzles/sudoku/easy`,
     })
 
-    let gameData = JSON.parse(nyt.data.match(/.*window\.gameData = (.*?)<\/script>.*/)[1])[config.difficulty].puzzle_data.puzzle
+    let gameData = JSON.parse(nyt.data.match(/.*window\.gameData = (.*?)<\/script>.*/)[1])[options.difficulty].puzzle_data.puzzle
 
     let html = "<div id='sudoku-container'>"
     for (let si = 0; si < 3; si++) {
