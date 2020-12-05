@@ -1,6 +1,7 @@
-exports.build = function (options) {
+exports.build = async function (options = {}) {
     return {
-        title: options.title,
-        html: ``,
+        html: `<div class="break-after">
+            <div class="section">${options.title}</div>
+        </div>`,
     }
 }

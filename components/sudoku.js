@@ -7,6 +7,7 @@ const style = `<style>
 
     #sudoku-container {
         padding-top: 100px;
+        page-break-inside: avoid;
     }
     
     .sudoku-cell {
@@ -81,8 +82,11 @@ exports.build = async function (options) {
     html += "</div>"
 
     return {
-        title: "sudoku",
-        html: `${style}${html}`
+        html: `${style}
+                <div class="no-break">
+                    <div class="section">sudoku</div>
+                    ${html}
+                </div>`
     }
 
 }

@@ -1,7 +1,7 @@
 const moment = require('moment')
 
-exports.build = function (options) {
+exports.build = async function (options = {}) {
     return {
-        html: `<div class="mono">${moment().format("DD•MM•YYYY")}</div>`,
+        html: `<header class="mono">${moment().format("DD•MM•YYYY")}</header>`,
     }
 }

@@ -22,6 +22,7 @@ const style = `<style>
         border: ${dayBorder}px solid black;
         margin: 0 ${dayMargin}px;
         margin-bottom: 50px;
+        font-size: ${(daySize - dayBorder * 2) * 0.5}px;
         line-height: ${daySize - dayBorder * 2}px;
         text-align: center;
         box-sizing: border-box;
@@ -56,8 +57,8 @@ const style = `<style>
     }
     </style>`
 
-exports.build = async function (options) {
-    let html = `${style}<div id="calendar-container" class="column justify align">`
+exports.build = async function (options = {}) {
+    let html = `${style}<div id="calendar-container">`
 
     // Days
     html += await buildDays()
@@ -68,8 +69,7 @@ exports.build = async function (options) {
     html += '</div>'
 
     return {
-        title: 'calendar',
-        html: html,
+        html: `<div class="section">calendar</div>${html}`,
     }
 }
 

@@ -1,12 +1,8 @@
 const fs = require('fs')
 const style = fs.readFileSync('style.css')
 
-const PAGE_OPENING = '<div class="page">'
-const PAGE_ENDING = '</div>'
-
-const greeter = require("./components/greeter")
 const header = require("./components/header")
-const section = require("./components/section")
+const greeter = require("./components/greeter")
 const calendar = require("./components/calendar")
 const empty = require("./components/empty")
 const japanese = require("./components/japanese")
@@ -16,53 +12,30 @@ const anki = require("./components/anki")
 exports.bonjour = async function () {
     let html = `<html lang="en"><style>${style}</style>`
 
-    html += await frontPage()
+    html += (await header.build()).html
 
-    html += await page([[anki, {deck: "JP Core 2000", answers: false, jap: true}]])
-    html += await page([[anki, {deck: "JP Core 2000", answers: true, jap: true}]])
+    html += `<table><thead><tr><td><div class="page-header-space"></div></td></tr></thead>`
+    html += `<tbody><tr><td>`
 
-    html += await page([[anki, {deck: "JP Core 2000", seed: "1", answers: false, jap: true}]])
-    html += await page([[anki, {deck: "JP Core 2000", seed: "1", answers: true, jap: true}]])
+    // Title page
+    html += (await greeter.build()).html
+    html += (await calendar.build()).html
+    html += (await empty.build({title: "notes & todos"})).html
 
-    html += await page([[anki, {deck: "B1 Wortliste", answers: false}]])
-    html += await page([[anki, {deck: "B1 Wortliste", answers: true}]])
+    // Anki
+    html += (await anki.build({deck: "JP Core 2000", n: 12, answers: false, jap: true})).html
+    html += (await anki.build({deck: "JP Core 2000", n: 12, answers: true, jap: true})).html
 
-    html += await page([[japanese, {}]])
+    html += (await anki.build({deck: "B1 Wortliste", n: 4, answers: false})).html
+    html += (await anki.build({deck: "B1 Wortliste", n: 4, answers: true})).html
 
-    html += await page([[sudoku, {difficulty: "easy"}]])
+    // More japanese
+    html += (await japanese.build()).html
 
-    return html
-}
+    // Sudoku
+    html += (await sudoku.build({difficulty: "easy"})).html
 
-async function buildComponent(component, options = {}) {
-    let result = await component.build(options)
-    let html = ""
+    html += `</td></tr></tbody></table>`
 
-    if (result.hasOwnProperty("title")) {
-        let response = await section.build(result.title)
-        html += response.html
-    }
-
-    html += result.html
-    return html
-}
-
-async function frontPage() {
-    return page([
-        [greeter, {}],
-        [calendar, {}],
-        [empty, {title: "notes & todos"}],
-    ])
-}
-
-async function page(components) {
-    let html = PAGE_OPENING
-    html += await buildComponent(header)
-
-    for (const i in components) {
-        html += await buildComponent(components[i][0], components[i][1])
-    }
-
-    html += PAGE_ENDING
     return html
 }

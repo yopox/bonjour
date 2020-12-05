@@ -3,17 +3,29 @@ body {
     padding: 0;
 }
 
+@page {
+    height: 1672px;
+    margin: 0 100px 100px 200px;
+}
+
+.page-header-space {
+    min-height: 170px;
+}
+
+@media print {
+    thead { display: table-header-group; }
+
+    header {
+        position: fixed;
+        top: 75px;
+    }
+}
+
 html {
     font-family: Poppins, sans-serif;
     font-size: 40px;
     border: 0;
     padding: 0;
-}
-
-.page {
-    height: 1672px;
-    padding: 100px 100px 100px 200px;
-    overflow: hidden;
 }
 
 .mono {
@@ -24,7 +36,7 @@ html {
     font-family: Noto Sans JP, serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, .section {
     margin: 25px 0;
 }
 
@@ -32,8 +44,9 @@ h1 {
     font-size: 90px;
 }
 
-h2 {
+h2, .section {
     font-size: 70px;
+    font-weight: bold;
 }
 
 h3 {
@@ -64,4 +77,16 @@ h4 {
 
 .section {
     margin: 50px 0;
+}
+
+.break-before {
+    page-break-before: always;
+}
+
+.break-after {
+    page-break-after: always;
+}
+
+.no-break {
+    page-break-inside: avoid;
 }

@@ -6,34 +6,35 @@ const moment = require('moment')
 
 const style = `<style>
     .anki-container {
-        font-size: 35px;
-        line-height: 55px;
-        height: 100%;
+        font-size: 40px;
+        line-height: 60px;
     }
     
     .anki-nb {
         min-width: 100px;
     }
     
-    .anki-item + .anki-item {
-        padding-top: 150px;
+    .anki-item {
+        padding-bottom: 200px;
+        break-inside: avoid;
     }
     
-    .anki-answer + .anki-answer {
-        padding-top: 50px !important;
+    .anki-answer {
+        padding-bottom: 0;
+        margin-bottom: 50px;
     }
 </style>`
 
 exports.build = async function (options) {
     const deck = config[options.deck]
     const notes = JSON.parse(fs.readFileSync(`config/${deck.deckPath}`, 'utf8')).notes
-    const selected = drawNotes(notes, deck.n, options.seed ? options.seed : "")
+    const selected = drawNotes(notes, options.n, options.seed ? options.seed : "")
 
-    let html = `<div class="anki-container${options.jap ? ' jap' : ''} column align">`
+    let html = `<div class="anki-container${options.jap ? ' jap' : ''}">`
     let q = 0
 
     for (const note of selected) {
-        html += `<div class="anki-item${options.answers ? ' anki-answer' : ''} column">`
+        html += `<div class="anki-item${options.answers ? ' anki-answer' : ''}">`
         q += 1
 
         for (const sq in deck.questions) {
@@ -43,7 +44,7 @@ exports.build = async function (options) {
 
             html += `<div class="anki-question row">
                         <div class="anki-nb">${q}.${sq}</div>
-                        <div class="anki-question-content column">${content}</div>
+                        <div class="anki-question-content">${content}</div>
                     </div>`
         }
 
@@ -53,8 +54,11 @@ exports.build = async function (options) {
     html += `</div>`
 
     return {
-        title: `${options.deck} test${options.answers ? " answers" : ""}`,
-        html: `${style}${html}`,
+        html: `${style}
+                <div class="break-before break-after">
+                    <div class="section">${options.deck} test${options.answers ? " answers" : ""}</div>
+                    ${html}
+                </div>`,
     }
 }
 

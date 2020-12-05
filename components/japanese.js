@@ -33,7 +33,7 @@ const style = `<style>
 
 const divider = "&#160;&#160;•&#160;&#160;"
 
-exports.build = async function (options) {
+exports.build = async function (options = {}) {
     let html = ''
     let kanji = []
 
@@ -55,8 +55,11 @@ exports.build = async function (options) {
     }
 
     return {
-        title: 'japanese',
-        html: `${style}<div class="column justify align">${html}</div>`,
+        html: `${style}
+                <div class="break-before">
+                    <div class="section">japanese</div>
+                    <div class="column justify align">${html}</div>
+                </div>`,
     }
 }
 
