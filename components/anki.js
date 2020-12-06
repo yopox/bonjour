@@ -32,6 +32,7 @@ exports.build = async function (options) {
 
     let html = `<div class="anki-container${options.jap ? ' jap' : ''}">`
     let q = 0
+    let offset = options.offset ? options.offset : 0
 
     for (const note of selected) {
         html += `<div class="anki-item${options.answers ? ' anki-answer' : ''}">`
@@ -43,7 +44,7 @@ exports.build = async function (options) {
                 : `<div>${note.fields[deck.questions[sq]]}</div>`
 
             html += `<div class="anki-question row">
-                        <div class="anki-nb">${q}.${sq}</div>
+                        <div class="anki-nb">${q+offset}.${sq}</div>
                         <div class="anki-question-content">${content}</div>
                     </div>`
         }
