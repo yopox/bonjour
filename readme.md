@@ -6,11 +6,12 @@ The goal is to generate a custom newspaper every day which can be synced with a 
 # Requirements
 
 - `node`
-- `Poppins` font-family ([Google fonts](https://fonts.google.com/specimen/Poppins?category=Sans+Serif))
+- `Poppins` font-family ([Google Fonts](https://fonts.google.com/specimen/Poppins?category=Sans+Serif))
+- `Noto Sans JP` font-family if you use Japanese components ([Google Fonts](https://fonts.google.com/specimen/Noto+Sans+JP?subset=japanese))
 
 # How to use
 
-Check [the wiki](github.com/yopox/bonjour/wiki) for getting started.
+Check [the wiki](https://www.github.com/yopox/bonjour/wiki) for getting started.
 
 # Project organization
 
