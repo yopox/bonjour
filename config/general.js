@@ -3,12 +3,12 @@ exports.name = "user"
 
 // components/calendar configuration
 exports.calendar = {
-    key: require("./X.json").private_key,
-    serviceAcctId: 'X.gserviceaccount.com',
-    timezone: '+01:00',
-    calendars: [
-        'X',
-    ],
+    // key: require("./X.json").private_key,
+    // serviceAcctId: 'X.gserviceaccount.com',
+    // timezone: '+01:00',
+    // calendars: [
+    //     'X',
+    // ],
 }
 
 // components/japanese configuration
@@ -19,7 +19,7 @@ exports.japanese = {
 exports.anki = {
     'dummy': {
         deckPath: 'folder/deck.json',
-        n: 6,
+        n: 4,
         questions: [],
         answers: [],
     },
