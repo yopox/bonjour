@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-const CELL_SIZE = 90
+const CELL_SIZE = 110
 const BORDER_SIZE = 4
 
 const style = `<style>
@@ -13,9 +13,9 @@ const style = `<style>
     .sudoku-cell {
         width: ${CELL_SIZE}px;
         height: ${CELL_SIZE}px;
-        font-size: 55px;
+        font-size: 65px;
         text-align: center;
-        line-height: 55px;
+        line-height: 65px;
         font-weight: 400;
         border: ${BORDER_SIZE / 2}px solid black;
     }
