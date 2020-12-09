@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "localPDF": "node index.js"
+    "localPDF": "node index.js",
+    "upload": "node upload.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "node-google-calendar": "^1.1.1",
     "puppeteer": "^1.20.0",
     "random": "^2.2.0",
+    "remarkable-typescript": "^1.1.0",
     "seedrandom": "^3.0.5",
     "xml2js": "^0.4.23"
   }

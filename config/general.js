@@ -1,6 +1,10 @@
 // General bonjour configuration
 exports.name = "user"
 
+exports.remarkable = {
+    token: "x.y.z",
+}
+
 exports.calendar = {
     // key: require("./X.json").private_key,
     // serviceAcctId: 'X.gserviceaccount.com',
@@ -18,7 +22,7 @@ exports.anki = {
     'dummy': {
         deckPath: 'folder/deck.json',
         n: 4,
-        questions: [],
-        answers: [],
+        questions: [0],
+        answers: [[0, 1]],
     },
 }
