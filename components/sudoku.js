@@ -15,7 +15,7 @@ const style = `<style>
         height: ${CELL_SIZE}px;
         font-size: 65px;
         text-align: center;
-        line-height: 65px;
+        line-height: ${CELL_SIZE}px;
         font-weight: 400;
         border: ${BORDER_SIZE / 2}px solid black;
     }
@@ -71,7 +71,7 @@ exports.build = async function (options) {
                 html += "<div class='row sudoku-cell-row'>"
                 for (let cj = 0; cj < 3; cj++) {
                     let cellNb = gameData[cj + 3*sj + 9*ci + 27*si]
-                    html += `<div class='sudoku-cell mono column justify'>${cellNb === 0 ? "" : cellNb}</div>`
+                    html += `<div class='sudoku-cell mono'>${cellNb === 0 ? "" : cellNb}</div>`
                 }
                 html += "</div>"
             }
