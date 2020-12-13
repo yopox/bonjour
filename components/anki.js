@@ -28,7 +28,7 @@ const style = `<style>
 exports.build = async function (options) {
     const deck = config[options.deck]
     const notes = JSON.parse(fs.readFileSync(`config/${deck.deckPath}`, 'utf8')).notes
-    const selected = drawNotes(notes, options.n, options.seed ? options.seed : "")
+    const selected = drawNotes(notes, options.n, options.seed ? options.seed : "", options.dayOffset ? options.dayOffset : 0)
 
     let html = `<div class="anki-container${options.jap ? ' jap' : ''}">`
     let q = 0
@@ -63,8 +63,8 @@ exports.build = async function (options) {
     }
 }
 
-function drawNotes(notes, n, seed) {
-    random.use(seedrandom(moment().format("DDMMYYYY") + seed))
+function drawNotes(notes, n, seed, dayOffset) {
+    random.use(seedrandom(moment().add(dayOffset, 'day').format("DDMMYYYY") + seed))
 
     let selected = []
 
